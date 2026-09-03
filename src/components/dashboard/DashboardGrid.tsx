@@ -10,9 +10,11 @@ interface DashboardGridProps {
   onDeleteWidget: (id: string) => void;
 }
 
-/** Widgets that should span the full grid width. */
-const FULL_WIDTH_TYPES = new Set(["table"]);
-
+/**
+ * Grid layout: a 2-column grid on md+ screens. Metric widgets take one
+ * column; every other widget spans the full width. This keeps the board
+ * filling the available width instead of leaving a dead gutter on the right.
+ */
 export function DashboardGrid({
   widgets,
   filters,
@@ -30,14 +32,11 @@ export function DashboardGrid({
   }
 
   return (
-    <div className="grid flex-1 grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
       {widgets.map((widget) => (
         <div
           key={widget.id}
-          className={cn(
-            widget.type === "metric" ? "sm:col-span-1" : "sm:col-span-2",
-            FULL_WIDTH_TYPES.has(widget.type) && "lg:col-span-3"
-          )}
+          className={cn(widget.type !== "metric" && "md:col-span-2")}
         >
           <WidgetRenderer
             widget={widget}

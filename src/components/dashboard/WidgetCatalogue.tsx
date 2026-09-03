@@ -18,7 +18,7 @@ export function WidgetCatalogue({ onAdd, onLoadConfig }: WidgetCatalogueProps) {
         <h2 className="text-sm font-semibold">Widget Catalogue</h2>
         <p className="text-xs text-muted-foreground">Click to add to dashboard</p>
       </div>
-      <div className="flex flex-1 flex-col gap-2 overflow-y-auto p-3">
+      <div className="flex flex-1 flex-col gap-2 overflow-y-auto overflow-x-hidden p-3">
         {widgetCatalogue.map((entry) => {
           const Icon = entry.icon;
           return (
@@ -31,12 +31,12 @@ export function WidgetCatalogue({ onAdd, onLoadConfig }: WidgetCatalogueProps) {
               <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-background">
                 <Icon className="h-4 w-4" />
               </span>
-              <span className="flex flex-col">
+              <span className="flex min-w-0 flex-col">
                 <span className="flex items-center gap-1 text-sm font-medium">
-                  <Plus className="h-3 w-3" />
+                  <Plus className="h-3 w-3 shrink-0" />
                   {entry.label}
                 </span>
-                <span className="text-xs font-normal text-muted-foreground">
+                <span className="whitespace-normal text-xs font-normal text-muted-foreground">
                   {entry.description}
                 </span>
               </span>
